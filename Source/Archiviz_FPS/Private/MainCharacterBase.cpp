@@ -5,7 +5,7 @@
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "DrawDebugHelpers.h"
-#include "PictureFrames.h"
+#include "InteractableObjectBase.h"
 
 AMainCharacterBase::AMainCharacterBase()
 {
@@ -95,29 +95,29 @@ void AMainCharacterBase::Tick(float DeltaTime)
     DrawDebugLine(GetWorld(), LineTraceStart, LineTraceEnd,
         bHit ? FColor::Green : FColor::Red, false, -1.f, 0, 1.f);
 
-    APictureFrames* NewTarget = nullptr;
+    AInteractableObjectBase* NewTarget = nullptr;
     if (bHit && HitResult.GetActor())
     {
-        NewTarget = Cast<APictureFrames>(HitResult.GetActor());
+        NewTarget = Cast<AInteractableObjectBase>(HitResult.GetActor());
         // If we hit something but it's NOT a picture frame, NewTarget stays nullptr
         // This is correct behavior — keep it
     }
 
-    if (NewTarget != TargetPictureFrame)
+    if (NewTarget != TargetObject)
     {
-        TargetPictureFrame = NewTarget;
+        TargetObject = NewTarget;
 
-        if (TargetPictureFrame)
+        if (TargetObject)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Show — target: %s"), *TargetPictureFrame->GetName());
+            UE_LOG(LogTemp, Warning, TEXT("Show — target: %s"), *TargetObject->GetName());
             OnShowPrompt.Broadcast();
-            bIsLookingAtPic = true;
+            bIsLookingAtObject = true;
         }
         else
         {
             UE_LOG(LogTemp, Warning, TEXT("Hide — no target"));
             OnHidePrompt.Broadcast();
-            bIsLookingAtPic = false;
+            bIsLookingAtObject = false;
         }
     }
 
@@ -126,7 +126,7 @@ void AMainCharacterBase::Tick(float DeltaTime)
 
 void AMainCharacterBase::Interact()
 {
-    if (bIsLookingAtPic) {
+    if (bIsLookingAtObject) {
         OnInteract.Broadcast();
     }
 }

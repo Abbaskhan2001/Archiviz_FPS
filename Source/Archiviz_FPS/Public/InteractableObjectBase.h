@@ -4,32 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PictureFrames.generated.h"
-
-
+#include "InteractableObjectBase.generated.h"
 
 UCLASS()
-class ARCHIVIZ_FPS_API APictureFrames : public AActor
+class ARCHIVIZ_FPS_API AInteractableObjectBase : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APictureFrames();/*
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "MeshComponent")*/
-	//class UStaticMeshComponent* Mesh;
+	AInteractableObjectBase();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PreviewMeshComponent")
-	class UStaticMeshComponent* PreviewMesh;
+		class UStaticMeshComponent* PreviewMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "MyCharacter")
-	class AMainCharacterBase* MyCharacter;
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ArrayofFrames")
-	//	TArray<UStaticMeshComponent*> FrameVariants;
+		class AMainCharacterBase* MyCharacter;
 
-	UFUNCTION(BlueprintImplementableEvent,Category = "EVENT")
-	void ChangeMesh();
-	
-
-
+	UFUNCTION(BlueprintImplementableEvent, Category = "EVENT")
+		void ChangeMesh();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

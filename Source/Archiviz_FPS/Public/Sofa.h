@@ -17,14 +17,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="StaticMeshComponent")
 	class UStaticMeshComponent* SofaMesh;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "BoxComponent")
-	class UBoxComponent* SofaCollision;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Menu")
-	class UShowcaseMenu* Menu; 
 
-	UFUNCTION()
-		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-			int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "MyCharacter")
+		class AMainCharacterBase* MyCharacter;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "EVENT")
+		void ChangeMesh();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

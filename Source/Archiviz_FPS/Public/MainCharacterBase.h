@@ -10,7 +10,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInteract);
 class UCameraComponent;
 class UWidgetInteractionComponent;
 class UPhysicsHandleComponent;
-class APictureFrames;
+class AInteractableObjectBase;
 
 UCLASS()
 class ARCHIVIZ_FPS_API AMainCharacterBase : public ACharacter
@@ -39,7 +39,6 @@ public:
         FOnInteract OnInteract;
 
     bool bIsLookingAtObject = false;
-    bool bIsLookingAtPic = false;
 
     virtual void Tick(float DeltaTime) override;
 
@@ -59,7 +58,7 @@ protected:
     FHitResult HitResult;
     FCollisionQueryParams Params;
 
-    APictureFrames* TargetPictureFrame = nullptr;
+    AInteractableObjectBase* TargetObject = nullptr;
 
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
